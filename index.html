@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Put it here">
+     <meta name="application-name" content="AppName">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Billy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="refresh" content="30">-->
+
+
+<title>Data Table</title>
+
+<link rel="stylesheet" href="css/font-awesome.min.css">  
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/design.css" rel="stylesheet">
+<style>
+
+
+
+/****/
+
+.headbar{
+  background: rgb(0, 223, 211);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="headbar">
+  <div class="container">
+     <center> <h1>Data Management</h1> </center>
+      <!-- Trigger/Open The Modal -->
+      <button id="myBtn" class="btn btn-success">Add Item</button>
+  </div>
+</div>
+
+
+<div class="container" style="margin-top:100px">
+    <center>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Kode</th>
+              <th>Nama Barang</th>
+              <th>Jumlah</th>
+              <th>Harga</th>
+               <th>Disc</th>
+               
+             </tr>
+          </thead>
+          <tbody>
+            <tr  class="info">
+              <td><i class="fa fa-angle-double-right" aria-hidden="true"></i></td>
+              <td id="kode">AppleRed</td>
+              <td class="barang">Red Heart</td>
+              <td><span id="jumlah" >50</span> <span id="unit" >g</span> </td>
+              <td id="harga">10.0050</td>
+              <td id="disc">30%</td>
+            </tr>
+            <tr>
+                <td><i class="fa " aria-hidden="true"></i></td>
+              <td id="kode">AppleCrimson</td>
+              <td class="barang">Red Crimson Demolition</td>
+             <td><span id="jumlah" >50</span> <span id="unit" >kg</span> </td>
+              <td id="harga">10.000</td>
+              <td id="disc">10%</td>
+            </tr>
+            <tr>
+                <td><i class="fa " aria-hidden="true"></i></td>
+              <td id="kode">AppleBlue</td>
+              <td class="barang">Ice Tsunami</td>
+             <td><span id="jumlah" >50</span> <span id="unit" >kg</span> </td>
+              <td id="harga">10.000</td>
+              <td id="disc">10%</td>
+            </tr>
+            <tr>
+                <td><i class="fa " aria-hidden="true"></i></td>
+              <td id="kode">ApplePurple</td>
+              <td class="barang">Deadly Kiss</td>
+              <td><span id="jumlah" >42</span > <span  id="unit" >ton</span > </td>
+              <td id="harga">10.000</td>
+              <td id="disc">10%</td>
+            </tr>
+            <tr>
+                <td><i class="fa " aria-hidden="true"></i></td>
+              <td id="kode">ApplePurple</td>
+              <td class="barang">Deadly Kiss</td>
+              <td><span id="jumlah" >42</span > <span  id="unit" >ton</span > </td>
+              <td id="harga">10.000</td>
+              <td id="disc">10%</td>
+            </tr>
+          </tbody>
+        </table>
+          
+        </div>
+        
+        </center>
+</div>
+<button onclick="up()">up</button><button onclick="down()">down</button>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+   
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Edit Data</h2>
+    </div>
+    <div class="modal-body">
+        <form  method="post" >
+        <table class="formlist">
+        <tr><td>Kode</td><td colspan="2">: <input type="text" name="kode" size="35" ></td></tr>
+        <tr><td>Nama Barang</td><td colspan="2">: <input type="text" name="nama" size="35"></td></tr>
+        <tr><td>Jumlah</td><td>: <input type="number" name="jumlah" min="1"></td><td>Unit: <input type="text" name="unit" size="3"></td></tr>
+        <tr><td>Harga</td><td colspan="2">: Rp<input type="harga" name="harga" min="100" >,00</td><td>Disc: <input type="text" name="disc" size="3"></td></tr>
+        </table>
+        </form>
+    </div>
+    <div class="modal-footer">
+      <input type="submit"  name="submit" class="btn btn-success" value="Submit">
+      <input type="submit"  name="submit" class="btn btn-danger" value="Delete">
+    </div>
+  </div>
+
+</div>
+
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/navigate.js"></script>
+
+
+
+<script>
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+//$( "input[name*='kode']" ).val( "has man in it!" );  
+$(".clickable").click(
+  function () {
+    $( "input[name*='kode']" ).val( "has man in it!" );
+    modal.style.display = "block";  
+  }
+
+  );
+  
+function ModForm(kode,barang,jumlah,unit,harga,disc) {
+  $( "input[name*='kode']" ).val( kode );
+  $( "input[name*='nama']" ).val( barang );
+  $( "input[name*='jumlah']" ).val( jumlah );
+  $( "input[name*='unit']" ).val( unit );
+  $( "input[name*='harga']" ).val( harga );
+  $( "input[name*='disc']" ).val( disc );
+  modal.style.display = "block";  
+}
+
+
+</script>
+
+
+
+</body>
+</html> 
