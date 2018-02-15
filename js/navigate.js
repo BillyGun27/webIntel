@@ -34,7 +34,8 @@ function(data){
   for(i=0;i<5;i++){
  //   console.log(data[i].anggota1);
     $(".nama").eq(i).html(data[i].anggota1 );
-    
+    $(".nrp").eq(i).html(data[i].id );
+    $(".dosen").eq(i).html(data[i].anggota1 );
   }
   
  // console.log(data);
