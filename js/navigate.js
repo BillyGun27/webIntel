@@ -55,7 +55,7 @@ $("tr").click(function(){
     $(this).addClass("info");
     $(this).find(".fa").addClass("fa-angle-double-right");
   }else{
-    alert( $(this).find("#kode").html() );     
+    alert( $(this).find(".nama").html() );     
   }
 
 
