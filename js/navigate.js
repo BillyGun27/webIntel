@@ -1,16 +1,43 @@
+//modal
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+/****/
+
 numb =0;
-disp(numb);
-function disp(numb) {
+setInterval(disp,1000);
+/*setInterval(function(numb){//take data
+
+     console.log(numb);
+    
+  },1000)*/
+
+function disp() {
 
   $.get("php/data.php?offset="+numb,
 function(data){ 
   for(i=0;i<5;i++){
-    console.log(data[i].anggota1);
-    $(".barang").eq(i).html(data[i].anggota1 );
+ //   console.log(data[i].anggota1);
+    $(".nama").eq(i).html(data[i].anggota1 );
     
   }
   
-  console.log(data);
+ // console.log(data);
   //alert( data[0].anggota1 );
 //$("#barang").eq(1) 
  });
@@ -80,7 +107,7 @@ function left(){
   if(numb>0){
     
     numb-=5;
-    disp(numb);
+    disp();
     //alert("left"+numb);
   }else{
     alert("end left");
@@ -93,7 +120,7 @@ function right() {
   if(numb<150){
     
     numb+=5;
-    disp(numb);
+   disp();
     //alert("right"+numb);
   }else{
     alert("end right");
@@ -103,7 +130,8 @@ function right() {
 }
 
 function edit() {
-  alert("edit");
+  //alert("edit");
+  modal.style.display = "block";
 }
 
 function del() {
@@ -111,7 +139,8 @@ function del() {
 }
 
 function ins() {
-  alert("insert");
+ // alert("insert");
+ modal.style.display = "block";
 }
 window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
