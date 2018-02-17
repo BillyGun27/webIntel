@@ -1,3 +1,4 @@
+$("#dosen").load("data/dosen.php");
 //modal
 // Get the modal
 var modal = document.getElementById('myModal');
@@ -29,7 +30,7 @@ setInterval(disp,1000);
 
 function disp() {
 
-  $.get("php/data.php?offset="+numb,
+  $.get("data/view.php?offset="+numb,
 function(data){ 
   for(i=0;i<5;i++){
  //   console.log(data[i].anggota1);
@@ -56,7 +57,8 @@ $("tr").click(function(){
     $(this).addClass("info");
     $(this).find(".fa").addClass("fa-angle-double-right");
   }else{
-    alert( $(this).find(".nama").html() );     
+    //alert( $(this).find(".nama").html() );    
+    edit(); 
   }
 
 
@@ -129,20 +131,34 @@ function right() {
  
 
 }
-
+var submit;
 function edit() {
+  submit = "update";
   //alert("edit");
+  var nrp = $(".info").find(".nrp").html();
+  var nama = $(".info").find(".nama").html();
+  var dosen = $(".info").find(".dosen").html();
+  var tgl = $(".info").find(".tgl").html();
+
+  $("#nrp").val(nrp);
+  $("#nama").val(nama);
+  $("#dosen").val(dosen).change();
+  $("#tgl").val(tgl);
   modal.style.display = "block";
 }
 
+function ins() {
+  submit = "insert";
+  // alert("insert");
+  modal.style.display = "block";
+ }
+
 function del() {
-  alert("delete");
+  //alert("delete");
+  var ask = confirm("Apakah Anda Ingin Menghapus\n" +  $(".info").find(".nama").html() +"?" );
 }
 
-function ins() {
- // alert("insert");
- modal.style.display = "block";
-}
+
 window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
       return; // Do nothing if the event was already processed
@@ -184,3 +200,21 @@ window.addEventListener("keydown", function (event) {
     // Cancel the default action to avoid it being handled twice
     event.preventDefault();
   }, true);
+
+  
+  $("#former").submit(function(event) {
+
+    /* stop form from submitting normally */
+    event.preventDefault();
+
+    $.post("data/edit.php",
+{
+    submit: submit,
+    
+},
+  function(data){
+   alert(data);
+  // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+});
+ 
+});
