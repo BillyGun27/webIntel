@@ -33,6 +33,15 @@ function disp() {
   $.get("data/view.php?offset="+numb,
 function(data){ 
   for(i=0;i<5;i++){
+    $(".nrp").eq(i).html("");
+    $(".nama").eq(i).html("");
+    $(".alamat").eq(i).html("");
+    $(".dosen").eq(i).html("");
+    $(".tgl").eq(i).html("");
+
+  }
+
+  for(i=0;i<5;i++){
  //   console.log(data[i].anggota1);
     $(".nrp").eq(i).html(data[i].idmahasiswa );
     $(".nama").eq(i).html(data[i].nama_mahasiswa );
@@ -177,11 +186,11 @@ function del() {
     },
       function(data){
        alert(data);
-       location.reload(); 
+     //  location.reload(); 
       // $(".data_pengguna").load("routes/table/jenisbarang.php");    
     });
   }
-  disp();
+  //disp();
 
 }
 
