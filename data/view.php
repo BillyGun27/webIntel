@@ -1,9 +1,16 @@
 <?php
 include("connect.php");
 header('Content-Type: application/json');
-$offset = $_GET["offset"];
+
+if (isset( $_GET["offset"])) {
+    # code...
+    $offset = $_GET["offset"];
+}else{
+    $offset = 5;
+}
+
 $DB = new DB();
-$DB->query("SELECT id,NoPeserta ,anggota1,alamat FROM peserta LIMIT $offset, 5 ");
+$DB->query("SELECT idmahasiswa,nama_mahasiswa,tanggal_lahir_mahasiswa,alamat_mahasiswa,nama_wali FROM mahasiswa ,wali WHERE wali.idwali = mahasiswa.wali_mahasiswa AND  del IS NULL ");
 
 echo json_encode($DB->view());
 ?>

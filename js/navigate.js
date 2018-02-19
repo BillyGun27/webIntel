@@ -34,9 +34,11 @@ function disp() {
 function(data){ 
   for(i=0;i<5;i++){
  //   console.log(data[i].anggota1);
-    $(".nama").eq(i).html(data[i].anggota1 );
-    $(".nrp").eq(i).html(data[i].id );
-    $(".dosen").eq(i).html(data[i].anggota1 );
+    $(".nrp").eq(i).html(data[i].idmahasiswa );
+    $(".nama").eq(i).html(data[i].nama_mahasiswa );
+    $(".alamat").eq(i).html(data[i].alamat_mahasiswa);
+    $(".dosen").eq(i).html(data[i].nama_wali);
+    $(".tgl").eq(i).html(data[i].tanggal_lahir_mahasiswa)
   }
   
  // console.log(data);
@@ -133,21 +135,31 @@ function right() {
 }
 var submit;
 function edit() {
+  $("#nrp").prop('readonly', true);
   submit = "update";
   //alert("edit");
   var nrp = $(".info").find(".nrp").html();
   var nama = $(".info").find(".nama").html();
   var dosen = $(".info").find(".dosen").html();
   var tgl = $(".info").find(".tgl").html();
+  var alamat = $(".info").find(".alamat").html();
 
   $("#nrp").val(nrp);
   $("#nama").val(nama);
   $("#dosen").val(dosen).change();
+  $("#alamat").val(alamat);
   $("#tgl").val(tgl);
   modal.style.display = "block";
 }
 
 function ins() {
+  $("#nrp").prop('readonly', false);
+  $("#nrp").val('');
+  $("#nama").val('');
+  $("#dosen").val('').change();
+  $("#alamat").val('');
+  $("#tgl").val('');
+
   submit = "insert";
   // alert("insert");
   modal.style.display = "block";
@@ -165,12 +177,26 @@ function del() {
     },
       function(data){
        alert(data);
+       location.reload(); 
       // $(".data_pengguna").load("routes/table/jenisbarang.php");    
     });
   }
+  disp();
 
 }
 
+function recycle() {
+
+    $.post("data/recycle.php",
+      function(data){
+       alert(data);
+       
+      // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+    });
+  
+  
+
+}
 
 window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
@@ -224,6 +250,10 @@ window.addEventListener("keydown", function (event) {
 {
     submit: submit,
     nama:  $("#nama").val(),
+    nrp: $("#nrp").val(),
+    alamat: $("#alamat").val(),
+    dosen: $("#dosen").val(),
+    tgl: $("#tgl").val()
     
 },
   function(data){

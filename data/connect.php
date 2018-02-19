@@ -18,7 +18,7 @@ class DB
         
 
         $servername = "127.0.0.1";
-        $dbname = "baronas";
+        $dbname = "webintel";
         $username = "root";
         $password = "273109";
 
@@ -54,8 +54,8 @@ class DB
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute((array) $this->param);    
         } catch (\PDOException $e) {
-            echo $e->getMessage()."<br>";
-            throw new \Exception();
+            echo "Duplicate Error Input Not ";//$e->getMessage()."<br>";
+            //throw new \Exception();
         }
 
         return $stmt;
