@@ -156,6 +156,19 @@ function ins() {
 function del() {
   //alert("delete");
   var ask = confirm("Apakah Anda Ingin Menghapus\n" +  $(".info").find(".nama").html() +"?" );
+
+  if(ask){
+    $.post("data/delete.php",
+    {
+        nrp:  $(".info").find(".nrp").html(),
+        
+    },
+      function(data){
+       alert(data);
+      // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+    });
+  }
+
 }
 
 
@@ -210,6 +223,7 @@ window.addEventListener("keydown", function (event) {
     $.post("data/edit.php",
 {
     submit: submit,
+    nama:  $("#nama").val(),
     
 },
   function(data){
