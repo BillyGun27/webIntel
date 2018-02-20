@@ -9,6 +9,16 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
+    $.post("data/free.php",
+    {
+        nrp:  $(".info").find(".nrp").html(),
+        
+    },
+      function(data){
+       alert(data);
+     //  location.reload(); 
+      // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+    });
 
 }
 
@@ -16,6 +26,16 @@ span.onclick = function() {
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        $.post("data/free.php",
+        {
+            nrp:  $(".info").find(".nrp").html(),
+            
+        },
+          function(data){
+           //alert(data);
+         //  location.reload(); 
+          // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+        });
     }
 }
 /****/
@@ -144,6 +164,23 @@ function right() {
 }
 var submit;
 function edit() {
+  $.post("data/occupied.php",
+  {
+      nrp:  $(".info").find(".nrp").html(),
+      
+  },
+    function(data){
+    // alert(data);
+     if(data == "edit data"){
+      modal.style.display = "block";
+     }else{
+      alert(data);
+     }
+   
+   //  location.reload(); 
+    // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+  });
+
   $("#nrp").prop('readonly', true);
   submit = "update";
   //alert("edit");
@@ -158,7 +195,7 @@ function edit() {
   $("#dosen").val(dosen).change();
   $("#alamat").val(alamat);
   $("#tgl").val(tgl);
-  modal.style.display = "block";
+  
 }
 
 function ins() {
