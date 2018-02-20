@@ -15,7 +15,7 @@ span.onclick = function() {
         
     },
       function(data){
-       alert(data);
+     //  alert(data);
      //  location.reload(); 
       // $(".data_pengguna").load("routes/table/jenisbarang.php");    
     });
@@ -39,6 +39,23 @@ window.onclick = function(event) {
     }
 }
 /****/
+
+window.onbeforeunload = function () {
+  //return "Do you really want to close?";
+  console.log("Do you really want to close");
+  modal.style.display = "none";
+  $.post("data/free.php",
+  {
+      nrp:  $(".info").find(".nrp").html(),
+      
+  },
+    function(data){
+     //alert(data);
+   //  location.reload(); 
+    // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+  });
+  
+};
 
 numb =0;
 setInterval(disp,1000);
@@ -304,6 +321,7 @@ window.addEventListener("keydown", function (event) {
 },
   function(data){
    alert(data);
+   modal.style.display = "none";
   // $(".data_pengguna").load("routes/table/jenisbarang.php");    
 });
  
