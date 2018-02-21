@@ -66,7 +66,6 @@ setInterval(disp,1000);
   },1000)*/
 
 function disp() {
-
   $.get("data/view.php?offset="+numb,
 function(data){ 
   for(i=0;i<5;i++){
@@ -308,6 +307,7 @@ window.addEventListener("keydown", function (event) {
 
     /* stop form from submitting normally */
     event.preventDefault();
+
 
     $.post("data/edit.php",
 {

@@ -17,7 +17,7 @@ if(isset($_POST["submit"]) ){
       $DB->query("INSERT INTO mahasiswa(idmahasiswa,nama_mahasiswa,tanggal_lahir_mahasiswa,alamat_mahasiswa,wali_mahasiswa) VALUES(?,?,?,?,?) ")
      ->param( [$id ,$nama ,$tgl ,$alamat ,$dat[0]["idwali"] ] );
     }else if($_POST["submit"] == "update"){
-        $DB->query("UPDATE mahasiswa SET nama_mahasiswa = ?,tanggal_lahir_mahasiswa = ? , alamat_mahasiswa = ? ,wali_mahasiswa = ? WHERE idmahasiswa = ?  ")
+        $DB->query("UPDATE mahasiswa SET nama_mahasiswa = ?,tanggal_lahir_mahasiswa = ? , alamat_mahasiswa = ? ,wali_mahasiswa = ? ,multi = NULL WHERE idmahasiswa = ?  ")
        ->param( [ $nama ,$tgl ,$alamat ,$dat[0]["idwali"],$id ] );
     }
     
