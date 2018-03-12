@@ -54,8 +54,10 @@ class DB
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute((array) $this->param);    
         } catch (\PDOException $e) {
-            echo "Duplicate Error Input Not ";//$e->getMessage()."<br>";
+       //     echo "Duplicate Input ";
+            //$e->getMessage()."<br>";
             //throw new \Exception();
+            $stmt = false;
         }
 
         return $stmt;

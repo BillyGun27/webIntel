@@ -8,34 +8,13 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
-    $.post("data/free.php",
-    {
-        nrp:  $(".info").find(".nrp").html(),
-        
-    },
-      function(data){
-     //  alert(data);
-     //  location.reload(); 
-      // $(".data_pengguna").load("routes/table/jenisbarang.php");    
-    });
-
+  closeModal();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
-        $.post("data/free.php",
-        {
-            nrp:  $(".info").find(".nrp").html(),
-            
-        },
-          function(data){
-           //alert(data);
-         //  location.reload(); 
-          // $(".data_pengguna").load("routes/table/jenisbarang.php");    
-        });
+      closeModal();
     }
 }
 /****/
@@ -43,6 +22,11 @@ window.onclick = function(event) {
 window.onbeforeunload = function () {
   //return "Do you really want to close?";
   console.log("Do you really want to close");
+  closeModal();
+  
+};
+
+function closeModal(){
   modal.style.display = "none";
   $.post("data/free.php",
   {
@@ -54,8 +38,9 @@ window.onbeforeunload = function () {
    //  location.reload(); 
     // $(".data_pengguna").load("routes/table/jenisbarang.php");    
   });
-  
-};
+
+
+}
 
 numb =0;
 setInterval(disp,1000);
@@ -66,7 +51,7 @@ setInterval(disp,1000);
   },1000)*/
 
 function disp() {
-  $.get("data/view.php?offset="+numb,
+  $.get("data/view.php",//?offset="+numb,
 function(data){ 
   for(i=0;i<5;i++){
     $(".nrp").eq(i).html("");
@@ -76,14 +61,14 @@ function(data){
     $(".tgl").eq(i).html("");
 
   }
-
+//console.log(data);
   for(i=0;i<5;i++){
- //   console.log(data[i].anggota1);
-    $(".nrp").eq(i).html(data[i].idmahasiswa );
-    $(".nama").eq(i).html(data[i].nama_mahasiswa );
-    $(".alamat").eq(i).html(data[i].alamat_mahasiswa);
-    $(".dosen").eq(i).html(data[i].nama_wali);
-    $(".tgl").eq(i).html(data[i].tanggal_lahir_mahasiswa)
+   // console.log(data[i].nama_mahasiswa);
+    $(".nrp").eq(i).html(data[i+numb].idmahasiswa );
+    $(".nama").eq(i).html(data[i+numb].nama_mahasiswa );
+    $(".alamat").eq(i).html(data[i+numb].alamat_mahasiswa);
+    $(".dosen").eq(i).html(data[i+numb].nama_wali);
+    $(".tgl").eq(i).html(data[i+numb].tanggal_lahir_mahasiswa)
   }
   
  // console.log(data);
@@ -93,7 +78,51 @@ function(data){
 
 }
 
+$(".help-block").hide();
+function InvalidId(textbox) {
+  $.get("data/view.php",//?offset="+numb,
+  function(data){ 
+   
+    //  $(".nrp").eq(i).html(data[i+numb].idmahasiswa );
+      var duplicate='' ;
+  //    $(".CatList").each(function(index){
+  //      if(textbox.value.toLowerCase() == $(".CatList").eq(index).html().toLowerCase() ){
+  //        duplicate = $(".CatList").eq(index).html();
+  //      }
+   //   })
 
+      data.forEach(element => {
+        if(textbox.value.toLowerCase() == element.idmahasiswa.toLowerCase() ){
+          duplicate = element.idmahasiswa.toLowerCase();
+         // console.log("duplicate");
+        }
+        console.log( element.idmahasiswa.toLowerCase());
+      });
+    
+    
+      if (textbox.value == '') {
+            textbox.setCustomValidity('Input new category');
+
+      }
+      else if(textbox.value.toLowerCase() == duplicate.toLowerCase() ){
+            textbox.setCustomValidity( duplicate +' category already exist');
+          $("#nrp-form").addClass("has-error");
+          $(".help-block").html( duplicate +' category already exist');
+          $(".help-block").show();
+      }
+      else {
+            textbox.setCustomValidity('');
+            $("#nrp-form").removeClass("has-error");
+            $(".help-block").hide();
+        }
+        return true;
+
+   });
+  
+ 
+  }
+
+//alert(window.location.pathname );
 $("tr").click(function(){
 
   if(!$(this).hasClass("info")){
@@ -105,7 +134,9 @@ $("tr").click(function(){
     $(this).find(".fa").addClass("fa-angle-double-right");
   }else{
     //alert( $(this).find(".nama").html() );    
-    edit(); 
+    //edit();"/webintel/index.html"  
+    editfrs();
+    
   }
 
 
@@ -115,9 +146,19 @@ $(document).on('click', ".info", function() {
   alert( $(this).find("kode").html() );     
 });
 */
+function editfrs(){
+  if( window.location.pathname == "/webintel/index.html" || window.location.pathname == "/webintel/"){
+    sessionStorage.nrp = $(".info").find(".nrp").html();
+    sessionStorage.nama = $(".info").find(".nama").html();
+    sessionStorage.semester = $("#semester").val();
+    sessionStorage.tahun = $("#tahun").val();
+    window.location = "./frs.html";
+    }
+}
+
 function up() {
     current = $(".info");
-    if (current.prev().length > 0){
+    if (current.prev().length > 0 ){
       current.removeClass("info");
     current.find(".fa").removeClass("fa-angle-double-right");
    
@@ -135,7 +176,8 @@ function up() {
 
 function down() {
     current = $(".info");
-    if (current.next().length > 0){
+    console.log( $('this').attr('id') );
+    if (current.next().length > 0  ){
       current.removeClass("info");
         current.find(".fa").removeClass("fa-angle-double-right");
     
@@ -155,13 +197,13 @@ function down() {
 
 function left(){
   if(numb>0){
-    
     numb-=5;
     disp();
     //alert("left"+numb);
   }else{
     alert("end left");
   }
+
  
 
 }
@@ -178,6 +220,7 @@ function right() {
  
 
 }
+
 var submit;
 function edit() {
   $.post("data/occupied.php",
@@ -190,7 +233,7 @@ function edit() {
      if(data == "edit data"){
       modal.style.display = "block";
      }else{
-      alert(data);
+      alert(data);//multiuser
      }
    
    //  location.reload(); 
@@ -212,6 +255,8 @@ function edit() {
   $("#alamat").val(alamat);
   $("#tgl").val(tgl);
   
+  $("#nrp-form").removeClass("has-error");
+  $(".help-block").hide();
 }
 
 function ins() {
@@ -225,6 +270,9 @@ function ins() {
   submit = "insert";
   // alert("insert");
   modal.style.display = "block";
+
+  $("#nrp-form").removeClass("has-error");
+  $(".help-block").hide();
  }
 
 function del() {
@@ -265,7 +313,7 @@ window.addEventListener("keydown", function (event) {
       return; // Do nothing if the event was already processed
     }
   
-    switch (event.key) {
+    switch (event.code) {
       case "ArrowDown":
         // Do something for "down arrow" key press.
         down();
@@ -282,7 +330,7 @@ window.addEventListener("keydown", function (event) {
         // Do something for "right arrow" key press.
         right();
         break;
-      case "Enter":
+      case "KeyE":
         // Do something for "enter" or "return" key press.
         edit();
         break;
@@ -291,7 +339,7 @@ window.addEventListener("keydown", function (event) {
         del();
         break;
       case "Insert":
-        // Do something for "esc" key press.
+        // Do something for "Insert" key press.
         ins();
         break;
       default:
