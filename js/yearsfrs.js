@@ -1,4 +1,25 @@
+var url;// = "data/view.php";
+var tableValue;/* = function (data){
 
+    for(i=0;i<5;i++){
+        $(".nrp").eq(i).html("");
+        $(".nama").eq(i).html("");
+        $(".alamat").eq(i).html("");
+        $(".dosen").eq(i).html("");
+        $(".tgl").eq(i).html("");
+    
+      }
+    //console.log(data);
+      for(i=0;i<5;i++){
+       // console.log(data[i].nama_mahasiswa);
+        $(".nrp").eq(i).html(data[i+numb].idmahasiswa );
+        $(".nama").eq(i).html(data[i+numb].nama_mahasiswa );
+        $(".alamat").eq(i).html(data[i+numb].alamat_mahasiswa);
+        $(".dosen").eq(i).html(data[i+numb].nama_wali);
+        $(".tgl").eq(i).html(data[i+numb].tanggal_lahir_mahasiswa)
+      }
+      
+}*/
 numb =0;
 setInterval(disp,1000);
 /*setInterval(function(numb){//take data
@@ -7,37 +28,17 @@ setInterval(disp,1000);
     
   },1000)*/
 
-function disp() {
-  $.get("data/frs/view.php?mhs="+sessionStorage.nrp+"&smt="+sessionStorage.semester+"&thn="+sessionStorage.tahun ,//?offset="+numb,
-function(data){ 
-    //alert(data.length);
-    $(".jmlmatkul").html(data.length);
-    var jmsks=0;
-    for(i=0;i<data.length;i++){
-      jmsks +=  parseInt( data[i].sks );
-    }
-    $(".jmlsks").html(jmsks);
-    for(i=0;i<5;i++){
-    $(".kode").eq(i).html("");
-    $(".matakuliah").eq(i).html("");
-    $(".sks").eq(i).html("");
+  
+  function disp() {
+    $.get(url,
+  function(data){
 
-  }
-//console.log(data);
-  for(i=0;i<5;i++){
-   // console.log(data[i].nama_mahasiswa);
-    $(".kode").eq(i).html(data[i+numb].kode );
-    $(".matakuliah").eq(i).html(data[i+numb].matakuliah );
-    $(".sks").eq(i).html(data[i+numb].sks);
-  }
+  tableValue(data);
  
- // console.log(data.length);
-  //alert( data[0].anggota1 );
-//$("#barang").eq(1) 
- });
-
-}
-
+   });
+  
+  }
+  
   //alert(window.location.pathname );
 $("tr").click(function(){
 
@@ -84,7 +85,7 @@ function up() {
 
 function down() {
     current = $(".info");
-    console.log( $('this').attr('id') );
+    //console.log( $('this').attr('id') );
     if (current.next().length > 0  ){
       current.removeClass("info");
         current.find(".fa").removeClass("fa-angle-double-right");
