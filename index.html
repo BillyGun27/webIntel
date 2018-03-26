@@ -38,7 +38,7 @@
 
 <div class="headbar">
   <div class="container">
-     <center> <h1>Data Management</h1> </center>
+     <center> <a href="./"> <h1>Data Management</h1> </a></center>
   </div>
 </div>
 
@@ -137,6 +137,7 @@
 <button onclick="edit()" class="btn btn-primary">edit</button>
 <button onclick="del()" class="btn btn-danger">delete</button>
 <button onclick="recycle()" class="btn btn-warning">Recycle</button>
+<button onclick="editcustom()" class="btn btn-primary">Edit Custom</button>
 </center>
 
 <!-- The Modal -->
@@ -205,11 +206,12 @@
 
 
 <script>
-
-
-
-
-
+function editcustom(){
+  modal.style.display = "block";
+  //$("#NRP").prop('readonly', true);
+  $(".modal-body").load("data/create/editfrsstd.php?nrp="+$(".info").find(".nrp").html() );
+  submit = "custom";
+}
 
 </script>
 

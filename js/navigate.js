@@ -356,21 +356,39 @@ window.addEventListener("keydown", function (event) {
     /* stop form from submitting normally */
     event.preventDefault();
 
+if(submit == "custom"){
+  var list = $('.customdata').map(function() {
+    return $(this).val();
+}).toArray();
+console.log(list);
+  $.post("data/create/editfrscustom.php",
+  {
+      list:  list
+      
+  },
+    function(data){
+     alert(data);
+     modal.style.display = "none";
+    // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+  });
 
-    $.post("data/edit.php",
-{
-    submit: submit,
-    nama:  $("#nama").val(),
-    nrp: $("#nrp").val(),
-    alamat: $("#alamat").val(),
-    dosen: $("#dosen").val(),
-    tgl: $("#tgl").val()
-    
-},
-  function(data){
-   alert(data);
-   modal.style.display = "none";
-  // $(".data_pengguna").load("routes/table/jenisbarang.php");    
-});
+}else{
+  $.post("data/edit.php",
+  {
+      submit: submit,
+      nama:  $("#nama").val(),
+      nrp: $("#nrp").val(),
+      alamat: $("#alamat").val(),
+      dosen: $("#dosen").val(),
+      tgl: $("#tgl").val()
+      
+  },
+    function(data){
+     alert(data);
+     modal.style.display = "none";
+    // $(".data_pengguna").load("routes/table/jenisbarang.php");    
+  });
+}
+  
  
 });

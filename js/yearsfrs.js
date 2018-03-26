@@ -30,18 +30,36 @@ setInterval(disp,1000);
 
   
   function disp() {
-    $.get(url,
+    /*$.get(url,
   function(data){
 
   tableValue(data);
  
-   });
+   });*/
+
+ //$(".customfrs").load("data/create/colname.php?thn="+  $("#tahun").val());
+   
   
   }
   
   //alert(window.location.pathname );
-$("tr").click(function(){
+  $(".customfrs").on("click","tr", function(event){
 
+    if(!$(this).hasClass("info")){
+      current = $(".info");
+      current.find(".fa").removeClass("fa-angle-double-right");
+      current.removeClass("info");
+    
+      $(this).addClass("info");
+      $(this).find(".fa").addClass("fa-angle-double-right");
+    }else{
+      editfrs();
+      
+    }
+});
+/*
+$("tr").click(function(){
+alert("clock");
 if(!$(this).hasClass("info")){
   current = $(".info");
   current.find(".fa").removeClass("fa-angle-double-right");
@@ -59,11 +77,22 @@ if(!$(this).hasClass("info")){
   //sessionStorage.tahun = $("#tahun").val();
   //window.location = "./frs.html";
   //}
+  editfrs();
   
 }
 
 
 });
+*/
+function editfrs(){
+ // if( window.location.pathname == "/webintel/index.html" || window.location.pathname == "/webintel/"){
+    sessionStorage.nrp = $(".info").find(".0").html();
+    sessionStorage.nama = $(".info").find(".1").html();
+    sessionStorage.semester = $(".info").find(".2").html();
+    sessionStorage.tahun = $("#tahun").val();
+    window.location = "./frs.html";
+//    }
+}
 
 function up() {
     current = $(".info");

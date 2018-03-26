@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Put it here">
+     <meta name="application-name" content="AppName">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Billy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="refresh" content="30">-->
+
+
+<title>Data Table</title>
+
+<link rel="stylesheet" href="css/font-awesome.min.css">  
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/design.css" rel="stylesheet">
+<style>
+
+
+
+/****/
+
+.headbar{
+  background: rgb(0, 223, 211);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="headbar">
+  <div class="container">
+     <center> <a href="./"> <h1>Data Management</h1> </a> </center>
+      
+  </div>
+</div>
+
+
+
+<div class="container" style="margin-top:100px">
+  <div class="row">
+      <h1>Edit FRS Standard</h1>
+      <br>
+      <div class="col-sm-2">
+            <a href="./yearfrs.html" class="btn btn-danger">Back</a>
+        </div>
+        <br><br>
+  </div>
+   
+    <center>
+        
+        <div class="row currentColumn">
+
+     <!--   <div class="form-group">
+            <input type="text" class="form-control" id="column">
+        </div>-->
+
+        </div>
+        <button class="btn btn-primary" onclick="editcolumn();">SAVE</button>          
+
+        <div class="form-group col-sm-6">
+                <input type="text" class="form-control" id="newcol">
+        </div>
+        <div class="col-sm-3">
+        <button class="btn btn-primary" onclick="newcolumn();">Add new column</button>            
+        </div>
+
+        <div class="row newColumn">
+
+        </div>
+
+    </center>
+</div>
+
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/yearsfrs.js"></script>
+<script>
+ $(".currentColumn").load("data/create/viewcolumn.php");
+ $(".headless").load("<h1>hello</h1>");
+
+
+ function newcolumn(){
+    $.post("data/create/altercolumn.php",
+  {
+      col :  $("#newcol").val(),
+      type : "ADD"
+      
+  },
+    function(data){
+    alert(data);
+   // console.log(data[0].frstable+ $("#tahun").val());
+   $(".currentColumn").load("data/create/viewcolumn.php");
+  });
+
+  
+}
+
+ function delcolumn(colname){
+     //alert("click");
+    $.post("data/create/altercolumn.php",
+  {
+      col :  colname,
+      type: "DROP"
+      
+  },
+    function(data){
+    alert(data);
+   // console.log(data[0].frstable+ $("#tahun").val());
+   $(".currentColumn").load("data/create/viewcolumn.php");
+  });
+
+  
+}
+
+function editcolumn(){
+    var list = $('.frscolumn').map(function() {
+                return $(this).val();
+            }).toArray();
+
+            console.log(list);
+
+      $.post("data/create/modifycolumn.php",
+  {
+      col :  list,
+      
+  },
+    function(data){
+    alert(data);
+   // console.log(data[0].frstable+ $("#tahun").val());
+   $(".currentColumn").load("data/create/viewcolumn.php");
+  });
+
+}
+</script>
+
+
+
+</body>
+</html> 

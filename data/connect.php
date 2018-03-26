@@ -70,6 +70,13 @@ class DB
         return $stmt->fetchAll();
     }
 
+    public function viewnum(){
+        $stmt = $this->process();
+
+        $stmt->setFetchMode(\PDO::FETCH_NUM);
+        return $stmt->fetchAll();
+    }
+
     public function send(){
         $stmt = $this->process();
         $success = false;

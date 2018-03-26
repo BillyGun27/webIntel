@@ -38,7 +38,7 @@
 
 <div class="headbar">
   <div class="container">
-     <center> <h1>Data Management</h1> </center>
+     <center> <a href="./"> <h1>Data Management</h1> </a> </center>
       
   </div>
 </div>
@@ -46,28 +46,31 @@
 
 <div class="container" style="margin-top:100px">
   <div class="row">
+        <div class="col-sm-2">
+            <a href="./managefrs.html" class="btn btn-success">Edit Kolom</a>
+        </div>
         <div class="col-sm-offset-3 col-sm-3">
             <input type="number" onchange="checktable();" class="form-control" id="tahun"  name="tahun" value="2018" min="2000" required>
         </div>
-        
   </div>
    
     <center>
+     
       <div class="emptyTable">
         <h2>Table Tidak Ada</h2>
           <button onclick="createTable()" class="btn btn-primary">Create</button>
       </div>
       <div class="table-responsive yearTable">
-        <table class="table table-hover">
+        <table class="table table-hover customfrs">
           <thead>
-            <tr>
-              <th></th>
+           <tr class="headerfrs">
+             <!-- <th></th>
               <th>NRP</th>
               <th>Nama</th>
               <th>Semester</th>
-              <th>Total SKS</th>               
-               
-             </tr>
+              <th>Total SKS</th>   -->            
+         </tr>
+      
           </thead>
           <tbody>
             <tr  class="info">
@@ -100,7 +103,7 @@
                 <td class="b"></td>
                 <td class="c"></td>
                 <td class="d"></td>
-              
+
             </tr>
             <tr>
                 <td><i class="fa " aria-hidden="true"></i></td>
@@ -124,28 +127,44 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/yearsfrs.js"></script>
 <script>
-  checktable();
+
+ $(".customfrs").load("data/create/colname.php?thn="+  $("#tahun").val());
+//alert($( "th" ).length);
+ /*for(i=0 ;i< $( "th" ).length -4 ;i++){
+  $("tr").append("<td></td>");
+ }*/
+
+//alert(value);
+//for(i=0 ;i<value ;i++){
+//  $("tr").append("<td></td>");
+//   }
+
+$.get("data/create/updateall.php");
+  
+checktable();
 
 url = "data/create/view.php?thn=" +  $("#tahun").val();
 tableValue = function (data){
 
-    for(i=0;i<5;i++){
-        $(".a").eq(i).html("");
-        $(".b").eq(i).html("");
-        $(".c").eq(i).html("");
-        $(".d").eq(i).html("");
-      }
+  //  for(i=0;i<5;i++){
+        //$(".a").eq(i).html("");
+        //$(".b").eq(i).html("");
+        //$(".c").eq(i).html("");
+        //$(".d").eq(i).html("");
+    //  }
 
     //console.log(data);
-      for(i=0;i<5;i++){
+    //  for(i=0;i<5;i++){
        // console.log(data[i].nama_mahasiswa);
-        $(".a").eq(i).html(data[i+numb].idmahasiswa );
-        $(".b").eq(i).html(data[i+numb].nama_mahasiswa );
-        $(".c").eq(i).html(data[i+numb].semester);
-        $(".d").eq(i).html(data[i+numb].totalsks);
-      }
+        
+      //  $(".a").eq(i).html(data[i+numb].idmahasiswa );
+      //  $(".b").eq(i).html(data[i+numb].nama_mahasiswa );
+      //  $(".c").eq(i).html(data[i+numb].semester);
+      //  $(".d").eq(i).html(data[i+numb].totalsks);
+      //}
       
 }
+
 
 
 function checktable(){
@@ -159,9 +178,12 @@ function checktable(){
    // console.log(data[0].frstable+ $("#tahun").val());
     if( data[0].frstable == 1 ){
         $(".yearTable").show();$(".emptyTable").hide();
-        url = "data/create/view.php?thn=" +  $("#tahun").val();
+        //url = "data/create/view.php?thn=" +  $("#tahun").val();
+        $(".customfrs").load("data/create/colname.php?thn="+  $("#tahun").val());
+        
     }else{
         $(".yearTable").hide();$(".emptyTable").show();
+        
     }
 
   });

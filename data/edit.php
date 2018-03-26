@@ -19,8 +19,11 @@ if(isset($_POST["submit"]) ){
     }else if($_POST["submit"] == "update"){
         $DB->query("UPDATE mahasiswa SET nama_mahasiswa = ?,tanggal_lahir_mahasiswa = ? , alamat_mahasiswa = ? ,wali_mahasiswa = ? ,multi = NULL WHERE idmahasiswa = ?  ")
        ->param( [ $nama ,$tgl ,$alamat ,$dat[0]["idwali"],$id ] );
+    }else if($_POST["submit"] == "custom"){
+        $DB->query("UPDATE frsstd SET nama_mahasiswa = ?,tanggal_lahir_mahasiswa = ? , alamat_mahasiswa = ? ,wali_mahasiswa = ? ,multi = NULL WHERE idmahasiswa = ?  ")
+       ->param( [ $nama ,$tgl ,$alamat ,$dat[0]["idwali"],$id ] );
     }
-    
+
     if($DB->send()){
         echo "sucess";
     }
